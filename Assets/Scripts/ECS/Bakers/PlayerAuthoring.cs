@@ -6,7 +6,7 @@ public class PlayerAuthoring : MonoBehaviour
 {
     public float MoveSpeed = 5f;   
 
-    private class Baker : Baker<PlayerAuthoring> 
+    private class Baker : Baker<PlayerAuthoring>
     {
         public override void Bake(PlayerAuthoring authoring)
         {
@@ -18,8 +18,22 @@ public class PlayerAuthoring : MonoBehaviour
             {
                 Value = authoring.MoveSpeed
             });
+         
+            AddComponent<InitializeCameraTargetTag>(entity);
+
+            AddComponent<CameraTarget>(entity);
 
             AddComponent<PlayerMoveDirection>(entity);
+
+            AddComponent<LastMoveDirection>(entity);
+
+            AddComponent(entity, new FacingDirectionOverride
+            {
+                Value = 1f
+            });
+
+            AddComponent<AnimationIndexOverride>(entity);
+
         }
     }
 }

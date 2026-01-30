@@ -23,7 +23,7 @@ public partial struct PlayerMoveSystem : ISystem
             .GetComponentRW<LocalTransform>(playerEntity).ValueRW;
         ref var facingDirection = ref SystemAPI
             .GetComponentRW<FacingDirectionOverride>(playerEntity).ValueRW;
-        ref var animationOverride = ref SystemAPI
+        ref var animationIndex = ref SystemAPI
             .GetComponentRW<AnimationIndexOverride>(playerEntity).ValueRW;
         ref var lastDirection = ref SystemAPI
                 .GetComponentRW<LastMoveDirection>(playerEntity).ValueRW;
@@ -49,22 +49,22 @@ public partial struct PlayerMoveSystem : ISystem
         {
             if (isMoving)
             {
-                animationOverride.Value = animationDirection.y > 0
-                    ? (float)AnimationIndex.WalkUp
-                    : (float)AnimationIndex.WalkDown;
+                animationIndex.Value = animationDirection.y > 0
+                    ? (float)PlayerAnimationIndex.WalkUp
+                    : (float)PlayerAnimationIndex.WalkDown;
             }
             else
             {
-                animationOverride.Value = animationDirection.y > 0
-                    ? (float)AnimationIndex.IdleUp
-                    : (float)AnimationIndex.IdleDown;
+                animationIndex.Value = animationDirection.y > 0
+                    ? (float)PlayerAnimationIndex.IdleUp
+                    : (float)PlayerAnimationIndex.IdleDown;
             }
         }
         else
         {
-            animationOverride.Value = isMoving
-                ? (float)AnimationIndex.WalkSide
-                : (float)AnimationIndex.IdleSide;
+            animationIndex.Value = isMoving
+                ? (float)PlayerAnimationIndex.WalkSide
+                : (float)PlayerAnimationIndex.IdleSide;
         }
 
         if (math.abs(direction.x) > 0.1f) facingDirection.Value = math.sign(direction.x);

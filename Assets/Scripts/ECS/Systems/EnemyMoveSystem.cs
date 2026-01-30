@@ -27,11 +27,15 @@ public partial struct EnemyMoveSystem : ISystem
         foreach (var (
             transform,
             moveSpeed,
+            animationIndex,
+            facingDirection,
             sepStrength,
             sepRadius) in
                         SystemAPI.Query
                         <RefRW<LocalTransform>,
                         RefRO<MoveSpeed>,
+                        RefRW<AnimationIndexOverride>,
+                        RefRW<FacingDirectionOverride>,
                         RefRO<SeparationStrenght>,
                         RefRO<SeparationRadius>>()
                         .WithAll<EnemyTag>())
@@ -62,6 +66,21 @@ public partial struct EnemyMoveSystem : ISystem
             finalDirection = math.normalize(finalDirection);
 
             transform.ValueRW.Position += deltaTime * moveSpeed.ValueRO.Value * finalDirection;
+
+            #region Animation
+            if (math.abs(directionToPlayer.y) > math.abs(directionToPlayer.x))
+            {
+                animationIndex.ValueRW.Value = directionToPlayer.y > 0
+                    ? (float)EnemyAnimationIndex.WalkUp
+                    : (float)EnemyAnimationIndex.WalkDown;
+            }
+            else
+            {
+                animationIndex.ValueRW.Value = (float)EnemyAnimationIndex.WalkSide;
+            }
+
+            if (math.abs(directionToPlayer.x) > 0.1f) facingDirection.ValueRW.Value = math.sign(directionToPlayer.x);
+            #endregion
         }
 
         allTransforms.Dispose();

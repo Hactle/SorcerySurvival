@@ -31,6 +31,13 @@ class EnemyAuthoring : MonoBehaviour
             {
                 Value = authoring.SeparationStrength,
             });
+
+            AddComponent(entity, new FacingDirectionOverride
+            {
+                Value = 1f
+            });
+
+            AddComponent<AnimationIndexOverride>(entity);
         }
     }
 }

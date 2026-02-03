@@ -31,6 +31,8 @@ class EnemyAuthoring : MonoBehaviour
             {
                 Value = authoring.SeparationStrength,
             });
+            
+            AddComponent(entity, new SpatialHashCell());
 
             AddComponent(entity, new FacingDirectionOverride
             {

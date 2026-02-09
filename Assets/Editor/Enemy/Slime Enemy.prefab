@@ -49,6 +49,7 @@ MonoBehaviour:
   MoveSpeed: 4
   SeparationRadius: 0.8
   SeparationStrength: 2
+  Damage: 15
 --- !u!23 &6592789190473018224
 MeshRenderer:
   m_ObjectHideFlags: 0

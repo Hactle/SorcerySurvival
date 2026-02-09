@@ -5,9 +5,17 @@ using Unity.Transforms;
 
 class EnemyAuthoring : MonoBehaviour
 {
-    public float MoveSpeed = 2f;
-    public float SeparationRadius = 0.4f;
-    public float SeparationStrength = 1.5f;
+    [Header("Movement")]
+    [Space(4)]
+    public float MoveSpeed;
+    public float SeparationRadius;
+    public float SeparationStrength;
+    [Space(5)]
+    [Header("Attack")]
+    [Space(4)]
+    public float Health;
+    public float Damage;
+
 
     class EnemyBaker : Baker<EnemyAuthoring>
     {
@@ -40,6 +48,16 @@ class EnemyAuthoring : MonoBehaviour
             });
 
             AddComponent<AnimationIndexOverride>(entity);
+
+            AddComponent(entity, new Health
+            {
+                Value = authoring.Health,
+            });
+
+            AddComponent(entity, new AttackDamage
+            {
+                Value = authoring.Damage,
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using Unity.Mathematics;
 
 public class PlayerAuthoring : MonoBehaviour
 {
+    public float MaxHealth = 100f;
     public float MoveSpeed = 5f;   
 
     private class Baker : Baker<PlayerAuthoring>
@@ -34,6 +35,15 @@ public class PlayerAuthoring : MonoBehaviour
 
             AddComponent<AnimationIndexOverride>(entity);
 
+            AddComponent(entity, new Health
+            {
+                Value = authoring.MaxHealth
+            });
+
+            AddComponent(entity, new MaxHealth
+            {
+                Value = authoring.MaxHealth
+            });
         }
     }
 }

@@ -30,12 +30,13 @@ public partial struct PlayerMoveSystem : ISystem
 
         float2 direction = SystemAPI.
             GetComponentRO<PlayerMoveDirection>(playerEntity).ValueRO.Value;
+        float speed = 
+            SystemAPI.GetComponentRO<MoveSpeed>(playerEntity).ValueRO.Value;
 
         bool isMoving = math.lengthsq(direction) > 0.1f;
 
         float3 moveDelta = new float3(direction, 0) * deltaTime;
 
-        float speed = SystemAPI.GetComponentRO<MoveSpeed>(playerEntity).ValueRO.Value;
         playerTransform.Position += moveDelta * speed;
 
         if (isMoving)

@@ -21,14 +21,14 @@ partial struct EnemyAttackSystem : ISystem
             damage) in
                  SystemAPI.Query
                  <RefRO<LocalTransform>,
-                 RefRO<AttackDamage>>().WithAll<EnemyTag>())
+                 RefRO<Damage>>().WithAll<EnemyTag>())
         {
             float distance =
                 math.distance(transform.ValueRO.Position, playerPosition);
 
             if (distance <= 1f)
             {
-                ecb.AddComponent(player, new Damage
+                ecb.AddComponent(player, new DamageEvent
                 {
                     Value = damage.ValueRO.Value
                 });

@@ -8,6 +8,7 @@ class EnemyAuthoring : MonoBehaviour
     [Header("Movement")]
     [Space(4)]
     public float MoveSpeed;
+    public float CollisionRadius;
     public float SeparationRadius;
     public float SeparationStrength;
     [Space(5)]
@@ -54,9 +55,14 @@ class EnemyAuthoring : MonoBehaviour
                 Value = authoring.Health,
             });
 
-            AddComponent(entity, new AttackDamage
+            AddComponent(entity, new Damage
             {
                 Value = authoring.Damage,
+            });
+
+            AddComponent(entity, new CollisionRadius
+            {
+                Value = authoring.CollisionRadius,
             });
         }
     }

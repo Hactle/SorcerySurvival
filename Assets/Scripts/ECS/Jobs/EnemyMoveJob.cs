@@ -41,19 +41,36 @@ public partial struct EnemyMoveJob : IJobEntity
                         float3 difference = selfPosition - other;
                         float distanceSq = math.lengthsq(difference);
 
-                        if (distanceSq > 0 && distanceSq < radiusSq)                        
-                            separation += difference / distanceSq;               
+                        if (distanceSq > 0.0001f && distanceSq < radiusSq)
+                        {
+                            float distance = math.sqrt(distanceSq);
+                            float3 pushDir = difference / distance;
 
+                            float strength = 1f - (distance / separationRadius.Value);
 
-                }
+                            separation += pushDir * strength;
+                        }
+                    }
                 while (HashMap.TryGetNextValue(out other, ref it));
 
         }
 
-        float3 direction = math.normalize(PlayerPosition - selfPosition);
-        float3 finalDirection = math.normalize(direction + separation * separationStrenght.Value);
+        float3 toPlayer = PlayerPosition - selfPosition;
+        float toPlayerLenSq = math.lengthsq(toPlayer);
 
-        transform.Position += finalDirection * moveSpeed.Value * DeltaTime;
+        float3 direction =
+            toPlayerLenSq > 0.0001f
+                ? toPlayer / math.sqrt(toPlayerLenSq)
+                : float3.zero;
+
+        float3 combined = direction + separation * separationStrenght.Value;
+        float combinedLenSq = math.lengthsq(combined);
+
+        if (combinedLenSq > 0.0001f)
+        {
+            float3 finalDirection = combined / math.sqrt(combinedLenSq);
+            transform.Position += finalDirection * moveSpeed.Value * DeltaTime;
+        }         
 
         #region Animation
         float absX = math.abs(direction.x);

@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &1233984803
+--- !u!1001 &2089584905
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -129,11 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 791796868121453768, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.76
+      value: -3.5683012
       objectReference: {fileID: 0}
     - target: {fileID: 791796868121453768, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4
+      value: -0.041986942
       objectReference: {fileID: 0}
     - target: {fileID: 791796868121453768, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -167,13 +167,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1174189586544278268, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
-      propertyPath: Health
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 5853073692423098571, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
       propertyPath: m_Name
-      value: Slime Enemy
+      value: Slime Enemy (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -228,22 +224,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5154607586331144450, guid: 557791fa78628f644bbad970afe60b86, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5154607586331144450, guid: 557791fa78628f644bbad970afe60b86, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5154607586331144450, guid: 557791fa78628f644bbad970afe60b86, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -6915481636028588794, guid: e0f65e80d02960243a25c89d07eeb2df, type: 3}
-    - target: {fileID: 5154607586331144450, guid: 557791fa78628f644bbad970afe60b86, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8520718383029416001, guid: 557791fa78628f644bbad970afe60b86, type: 3}
       propertyPath: m_Name
       value: Player
@@ -258,4 +238,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 5957751209532489997}
-  - {fileID: 1233984803}
+  - {fileID: 2089584905}

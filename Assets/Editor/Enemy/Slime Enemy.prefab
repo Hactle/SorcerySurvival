@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 4
-  SeparationRadius: 0.8
+  CollisionRadius: 0.3
+  SeparationRadius: 0.9
   SeparationStrength: 2
+  Health: 50
   Damage: 15
 --- !u!23 &6592789190473018224
 MeshRenderer:

@@ -46,7 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ffc9a5e0ec3f048989d64e4982ad58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 100
   MoveSpeed: 5
+  CollisionRadius: 0.5
+  InvincibilityTime: 1
 --- !u!23 &6472867003074596267
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class PlayerAuthoring : MonoBehaviour
 {
     public float MaxHealth = 100f;
     public float MoveSpeed = 5f;   
+    public float CollisionRadius = 0.5f;
+    public float InvincibilityTime;
 
     private class Baker : Baker<PlayerAuthoring>
     {
@@ -43,6 +45,16 @@ public class PlayerAuthoring : MonoBehaviour
             AddComponent(entity, new MaxHealth
             {
                 Value = authoring.MaxHealth
+            });
+
+            AddComponent(entity, new CollisionRadius
+            {
+                Value = authoring.CollisionRadius,
+            });
+
+            AddComponent(entity, new CanReceiveInvincibility
+            {
+                Value = authoring.InvincibilityTime
             });
         }
     }

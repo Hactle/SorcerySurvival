@@ -1,6 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 public class PlayerAuthoring : MonoBehaviour
 {

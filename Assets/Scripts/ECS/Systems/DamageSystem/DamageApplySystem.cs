@@ -2,11 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 
-public partial class DamagePipelineGroup : ComponentSystemGroup { }
-
-
-[UpdateInGroup(typeof(DamagePipelineGroup))]
-[UpdateAfter(typeof(InvincibilityFilterSystem))]
+[UpdateInGroup(typeof(DamageApplyGroup))]
 partial struct DamageApplySystem : ISystem
 {
     [BurstCompile]

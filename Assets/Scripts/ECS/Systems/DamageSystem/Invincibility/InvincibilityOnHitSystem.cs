@@ -1,7 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
 
-[UpdateInGroup(typeof(DamagePipelineGroup))]
+[UpdateInGroup(typeof(DamagePostProcessGroup))]
 partial struct InvincibilityOnHitSystem : ISystem
 {
     [BurstCompile]

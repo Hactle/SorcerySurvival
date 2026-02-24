@@ -1,10 +1,8 @@
-using Unity.Burst;
 using Unity.Entities;
 
-[UpdateInGroup(typeof(DamagePipelineGroup))]
+[UpdateInGroup(typeof(SimulationSystemGroup))]
 partial struct InvincibilityTimerSystem : ISystem
 {
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         float deltaTime = SystemAPI.Time.DeltaTime;

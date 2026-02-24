@@ -2,8 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 
-[UpdateInGroup(typeof(DamagePipelineGroup))]
-[UpdateAfter(typeof(InvincibilityOnHitSystem))]
+[UpdateInGroup(typeof(DamageFilterGroup))]
 partial struct InvincibilityFilterSystem : ISystem
 {
     [BurstCompile]

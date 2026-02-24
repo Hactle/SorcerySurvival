@@ -1,7 +1,6 @@
 using Unity.Entities;
 
-[UpdateInGroup(typeof(DamagePipelineGroup))]
-[UpdateAfter(typeof(InvincibilityOnHitSystem))]
+[UpdateInGroup(typeof(DamageApplyGroup))]
 partial struct DamageAppliedCleanupSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)

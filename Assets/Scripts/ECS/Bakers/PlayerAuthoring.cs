@@ -9,11 +9,15 @@ public class PlayerAuthoring : MonoBehaviour
     public float CollisionRadius = 0.5f;
     public float InvincibilityTime;
 
+    public GameObject MagicBulletAbilityPrefab;
+
     private class Baker : Baker<PlayerAuthoring>
     {
         public override void Bake(PlayerAuthoring authoring)
         {
-            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+
+            var abilityPrefabEntity = GetEntity(authoring.MagicBulletAbilityPrefab, TransformUsageFlags.None);
 
             AddComponent<PlayerTag>(entity);
 
@@ -55,6 +59,11 @@ public class PlayerAuthoring : MonoBehaviour
             AddComponent(entity, new CanReceiveInvincibility
             {
                 Value = authoring.InvincibilityTime
+            });
+
+            AddComponent(entity, new PlayerStartingAbility
+            {
+                Prefab = abilityPrefabEntity
             });
         }
     }

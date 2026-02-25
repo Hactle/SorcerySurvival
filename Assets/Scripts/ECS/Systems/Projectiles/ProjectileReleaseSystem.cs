@@ -8,17 +8,20 @@ partial struct ProjectileReleaseSystem : ISystem
     {
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
 
+        bool hasEnemies = !SystemAPI.QueryBuilder()
+            .WithAll<EnemyTag>()
+            .Build()
+            .IsEmpty;
+
+        if (!hasEnemies) return;
+
         foreach (var (
-            projectileReleaseTag,
-            abilityReady,
             projectilePrefab,
             damage,
             entityOwner) in SystemAPI.Query<
-                RefRO<ProjectileReleaseTag>,
-                RefRO<AbilityReadyTag>,
                 RefRO<AbilityProjectilePrefab>,
                 RefRO<Damage>,
-                RefRO<AbilityOwner>>())
+                RefRO<AbilityOwner>>().WithAll<ProjectileReleaseTag, AbilityReadyTag>())
         {
             var projectileInstance = ecb.Instantiate(projectilePrefab.ValueRO.Prefab);
 

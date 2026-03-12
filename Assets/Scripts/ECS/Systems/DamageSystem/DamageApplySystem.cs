@@ -15,7 +15,8 @@ partial struct DamageApplySystem : ISystem
             damage,
             entity) in SystemAPI.Query<
                 RefRW<Health>,
-                RefRO<DamageEvent>>().WithEntityAccess())
+                RefRO<DamageEvent>>()
+                .WithEntityAccess())
         {
             health.ValueRW.Value = math.max(
                 health.ValueRW.Value - damage.ValueRO.Value,

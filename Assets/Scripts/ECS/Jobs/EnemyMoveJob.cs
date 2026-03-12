@@ -12,7 +12,10 @@ public partial struct EnemyMoveJob : IJobEntity
     public float3 PlayerPosition;
 
     [ReadOnly]
-    public NativeParallelMultiHashMap<int, float3> HashMap;
+    public NativeParallelMultiHashMap<int, Entity> HashMap;
+
+    [ReadOnly]
+    public ComponentLookup<WorldPosition> PositionLookup;
 
     public void Execute(
         ref LocalTransform transform,
@@ -35,9 +38,15 @@ public partial struct EnemyMoveJob : IJobEntity
             int2 neighbour = selfCell + new int2(x, y);
             int hash = Hash(neighbour);
 
-            if (HashMap.TryGetFirstValue(hash, out float3 other, out var it))
-                do
+                if (HashMap.TryGetFirstValue(hash, out Entity otherEntity, out var it))
                 {
+                    do
+                    {
+                        if (!PositionLookup.HasComponent(otherEntity))
+                            continue;
+
+                        float3 other = PositionLookup[otherEntity].Value;
+
                         float3 difference = selfPosition - other;
                         float distanceSq = math.lengthsq(difference);
 
@@ -50,10 +59,10 @@ public partial struct EnemyMoveJob : IJobEntity
 
                             separation += pushDir * strength;
                         }
-                    }
-                while (HashMap.TryGetNextValue(out other, ref it));
 
-        }
+                    } while (HashMap.TryGetNextValue(out otherEntity, ref it));
+                }
+            }
 
         float3 toPlayer = PlayerPosition - selfPosition;
         float toPlayerLenSq = math.lengthsq(toPlayer);

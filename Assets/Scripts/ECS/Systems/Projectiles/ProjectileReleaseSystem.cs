@@ -27,6 +27,13 @@ partial struct ProjectileReleaseSystem : ISystem
 
             var ownerTransform = SystemAPI.GetComponent<LocalTransform>(entityOwner.ValueRO.Owner);
 
+            var ownerSide = SystemAPI.GetComponent<EntitySide>(entityOwner.ValueRO.Owner);
+
+            ecb.AddComponent(projectileInstance, new EntitySide
+            {
+                Value = ownerSide.Value
+            });
+
             ecb.SetComponent(projectileInstance, new LocalTransform
             {
                 Position = ownerTransform.Position,

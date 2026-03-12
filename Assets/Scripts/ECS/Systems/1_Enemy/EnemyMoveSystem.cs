@@ -18,11 +18,15 @@ public partial struct EnemyMoveSystem : ISystem
 
         var hashMap = SystemAPI.GetSingleton<SpatialHashMapSingleton>().Map;
 
+        var lookUp = SystemAPI.GetComponentLookup<WorldPosition>(true);
+        lookUp.Update(ref state);
+
         var job = new EnemyMoveJob
         {
             DeltaTime = SystemAPI.Time.DeltaTime,
             PlayerPosition = playerPosition,
-            HashMap = hashMap
+            HashMap = hashMap,
+            PositionLookup = lookUp,
         };
         state.Dependency = job.ScheduleParallel(state.Dependency);
     }

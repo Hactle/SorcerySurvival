@@ -20,6 +20,11 @@ public partial struct PlayerAbilityInitializationSystem : ISystem
                 Owner = entity
             });
 
+            ecb.AddComponent(abilityInstance, new EntitySide
+            {
+                Value = Sides.Player
+            });
+
             ecb.AddComponent<PlayerInitializedTag>(entity);
         }
 

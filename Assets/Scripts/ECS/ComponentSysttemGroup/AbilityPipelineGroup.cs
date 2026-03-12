@@ -5,10 +5,14 @@ public partial class AbilityPipelineGroup : ComponentSystemGroup { }
 
 
 [UpdateInGroup(typeof(AbilityPipelineGroup))]
-public partial class CooldownGroup : ComponentSystemGroup { }
+public partial class AbilityCooldownGroup : ComponentSystemGroup { }
 
 [UpdateInGroup(typeof(AbilityPipelineGroup))]
-[UpdateAfter(typeof(CooldownGroup))]
+[UpdateAfter(typeof(AbilityCooldownGroup))]
+public partial class AbilityInitializeGroup : ComponentSystemGroup { }
+
+[UpdateInGroup(typeof(AbilityPipelineGroup))]
+[UpdateAfter(typeof(AbilityInitializeGroup))]
 public partial class AbilityExecuteGroup : ComponentSystemGroup { }
 
 [UpdateInGroup(typeof(AbilityPipelineGroup))]

@@ -2,7 +2,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Transforms;
 
 [UpdateInGroup(typeof(SimulationSystemGroup))]
 [UpdateAfter(typeof(SpatialHashBuildSystem))]
@@ -12,7 +11,7 @@ public partial struct SpatialHashMapSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
-        var map = new NativeParallelMultiHashMap<int, float3>(1024, Allocator.Persistent);
+        var map = new NativeParallelMultiHashMap<int, Entity>(1024, Allocator.Persistent);
 
         var entity = state.EntityManager.CreateEntity();
         state.EntityManager.AddComponentData(entity, new SpatialHashMapSingleton
@@ -35,12 +34,13 @@ public partial struct SpatialHashMapSystem : ISystem
 
         map.Clear();
 
-        foreach (var (transform, cell) in
-                 SystemAPI.Query<RefRO<LocalTransform>, RefRO<SpatialHashCell>>()
+        foreach (var (cell, entity) in
+                 SystemAPI.Query<RefRO<SpatialHashCell>>()
+                          .WithEntityAccess()
                           .WithAll<EnemyTag>())
         {
             int hash = Hash(cell.ValueRO.Value);
-            map.Add(hash, transform.ValueRO.Position);
+            map.Add(hash, entity);
         }
     }
 

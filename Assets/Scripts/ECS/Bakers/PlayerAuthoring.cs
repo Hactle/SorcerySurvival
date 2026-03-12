@@ -22,6 +22,11 @@ public class PlayerAuthoring : MonoBehaviour
 
             AddComponent<PlayerTag>(entity);
 
+            AddComponent(entity, new EntitySide
+            {
+                Value = Sides.Player
+            });
+
             AddComponent(entity, new MoveSpeed
             {
                 Value = authoring.MoveSpeed

@@ -4,5 +4,5 @@ using Unity.Mathematics;
 
 public struct SpatialHashMapSingleton : IComponentData
 {
-    public NativeParallelMultiHashMap<int, float3> Map;
+    public NativeParallelMultiHashMap<int, Entity> Map;
 }

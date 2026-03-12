@@ -20,5 +20,10 @@ public class ProjectileAuthoringBaker : Baker<ProjectileAuthoring>
         AddComponent<Damage>(entity);
 
         AddComponent<ProjectileTag>(entity);
+
+        AddComponent(entity, new LifeTime
+        {
+            Value = 6f,
+        });
     }
 }

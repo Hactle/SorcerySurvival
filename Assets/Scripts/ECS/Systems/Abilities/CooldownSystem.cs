@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 
-[UpdateInGroup(typeof(CooldownGroup))]
+[UpdateInGroup(typeof(AbilityCooldownGroup))]
 partial struct CooldownCounterSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)

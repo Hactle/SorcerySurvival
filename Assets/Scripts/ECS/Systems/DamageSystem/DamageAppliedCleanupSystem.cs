@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-[UpdateInGroup(typeof(DamageApplyGroup))]
+[UpdateInGroup(typeof(DamagePostProcessGroup))]
 partial struct DamageAppliedCleanupSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
@@ -14,7 +14,6 @@ partial struct DamageAppliedCleanupSystem : ISystem
         {
             ecb.RemoveComponent<DamageAppliedEvent>(entity);
         }
-
         ecb.Playback(state.EntityManager);
     }
 }

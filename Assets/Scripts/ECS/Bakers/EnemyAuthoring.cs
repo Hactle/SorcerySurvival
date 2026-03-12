@@ -26,10 +26,17 @@ class EnemyAuthoring : MonoBehaviour
 
             AddComponent<EnemyTag>(entity);
 
+            AddComponent(entity, new EntitySide
+            {
+                Value = Sides.Enemy,
+            });
+
             AddComponent(entity, new MoveSpeed
             {
                 Value = authoring.MoveSpeed,
             });
+
+            AddComponent<WorldPosition>(entity);
 
             AddComponent(entity, new SeparationRadius
             {

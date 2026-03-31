@@ -1,9 +1,12 @@
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ProjectileAuthoring : MonoBehaviour
 {
     public float Speed;
+    public float HitRadius;
+    public float Pierce;
 }
 
 public class ProjectileAuthoringBaker : Baker<ProjectileAuthoring>
@@ -25,5 +28,17 @@ public class ProjectileAuthoringBaker : Baker<ProjectileAuthoring>
         {
             Value = 6f,
         });
+
+        AddComponent(entity, new HitRadius
+        {
+            Value = authoring.HitRadius,
+        });
+
+        AddComponent(entity, new Pierce
+        {
+            Value = authoring.Pierce,
+        });
+
+        AddBuffer<DamagedEntity>(entity);
     }
 }

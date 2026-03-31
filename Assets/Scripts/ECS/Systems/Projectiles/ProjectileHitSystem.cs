@@ -1,67 +1,161 @@
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(AbilityExecuteGroup))]
-[BurstCompile]
 partial struct ProjectileHitSystem : ISystem
 {
-    const float HitRadius = 0.25f;
-
     public void OnUpdate(ref SystemState state)
     {
+        const float CellSize = 1.5f;
+
         var map = SystemAPI.GetSingleton<SpatialHashMapSingleton>().Map;
         var ecb = new EntityCommandBuffer(Allocator.Temp);
 
+        var transformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
+        transformLookup.Update(ref state);
+
         foreach (var (
             transform,
-            damage)
+            damage,
+            hitRadius,
+            pierce,
+            damagedBuffer,
+            entitySide,
+            entity)
             in SystemAPI.Query<
                 RefRO<LocalTransform>,
-                RefRO<Damage>>()
-            .WithAll<ProjectileTag>())
+                RefRO<Damage>,
+                RefRO<HitRadius>,
+                RefRW<Pierce>,
+                DynamicBuffer<DamagedEntity>,
+                RefRO<EntitySide>>()
+            .WithAll<ProjectileTag>()
+            .WithNone<DestroyTag>()
+            .WithEntityAccess())
         {
-            float3 position = transform.ValueRO.Position;
+            if (entitySide.ValueRO.Value == Sides.Player)
+            {
+                float3 position = transform.ValueRO.Position;
 
-            int2 cell = new(
-                (int)math.floor(position.x / 1.5f),
-                (int)math.floor(position.z / 1.5f));
+                float hitRadiusSq = hitRadius.ValueRO.Value * hitRadius.ValueRO.Value;
 
-            for (int x = -1; x <= 1; x++)
-            for (int y = -1; y <= 1; y++)
-                {
-                    int2 neighbour = cell + new int2(x, y);
-                    int hash = Hash(neighbour);
+                int2 cell = new(
+                    (int)math.floor(position.x / CellSize),
+                    (int)math.floor(position.y / CellSize));
 
-                    if(!map.TryGetFirstValue(hash, out Entity enemy, out var it))
-                        continue;
+                int range = (int)math.ceil(hitRadius.ValueRO.Value / CellSize);
 
-                    do
+                bool hitSomething = false;
+
+                for (int x = -range; x <= range && !hitSomething; x++)
+                    for (int y = -range; y <= range && !hitSomething; y++)
                     {
-                        var enemyTransform = 
-                            SystemAPI.GetComponentRO<LocalTransform>(enemy);
+                        int2 neighbour = cell + new int2(x, y);
+                        int hash = Hash(neighbour);
 
-                        float distance = math.distancesq(
-                            position,
-                            enemyTransform.ValueRO.Position);
+                        if (!map.TryGetFirstValue(hash, out Entity enemy, out var it))
+                            continue;
 
-                        if (distance < HitRadius * HitRadius)
+                        do
                         {
-                            ecb.AddComponent(enemy, new DamageEvent
+                            if (!transformLookup.HasComponent(enemy))
+                                continue;
+
+                            float3 enemyPos = transformLookup[enemy].Position;
+
+                            float distSq = math.distancesq(position, enemyPos);
+
+                            if (distSq < hitRadiusSq)
                             {
-                                Value = damage.ValueRO.Value
-                            });
+                                bool alreadyHit = false;
+
+                                for (int i = 0; i < damagedBuffer.Length; i++)
+                                {
+                                    if (damagedBuffer[i].Value == enemy)
+                                    {
+                                        alreadyHit = true;
+                                        break;
+                                    }
+                                }
+
+                                if (alreadyHit)
+                                    continue;
+
+                                ecb.AddComponent(enemy, new DamageEvent
+                                {
+                                    Value = damage.ValueRO.Value
+                                });
+
+                                damagedBuffer.Add(new DamagedEntity
+                                {
+                                    Value = enemy
+                                });
+
+                                pierce.ValueRW.Value = math.max(0, pierce.ValueRW.Value - 1);
+
+                                if (pierce.ValueRW.Value == 0)
+                                    ecb.AddComponent<DestroyTag>(entity);
+
+                                hitSomething = true;
+                                break;
+                            }
+
+                        } while (map.TryGetNextValue(out enemy, ref it));
+                    }
+            }
+            else if (entitySide.ValueRO.Value == Sides.Enemy)
+            {
+                var player = SystemAPI.GetSingletonEntity<PlayerTag>();
+
+                if (!transformLookup.HasComponent(player))
+                    continue;
+
+                float3 position = transform.ValueRO.Position;
+                float3 playerPos = transformLookup[player].Position;
+
+                float hitRadiusSq = hitRadius.ValueRO.Value * hitRadius.ValueRO.Value;
+                float distanceSq = math.distancesq(position, playerPos);
+
+                if(distanceSq < hitRadiusSq)
+                {
+                    bool alredyHit = false;
+
+                    for (int i = 0; i < damagedBuffer.Length; i++)
+                    {
+                        if (damagedBuffer[i].Value == player)
+                        {
+                            alredyHit = true;
                             break;
                         }
-                    }while(map.TryGetNextValue(out enemy, ref it));
+                    }
+
+                    if (alredyHit)
+                        continue;
+
+                    ecb.AddComponent(player, new DamageEvent
+                    {
+                        Value = damage.ValueRO.Value
+                    });
+
+                    damagedBuffer.Add(new DamagedEntity
+                    {
+                        Value = player
+                    });
+
+                    pierce.ValueRW.Value = math.max(0, pierce.ValueRW.Value - 1);
+
+                    if (pierce.ValueRW.Value == 0)
+                        ecb.AddComponent<DestroyTag>(entity);
                 }
+            }       
         }
         ecb.Playback(state.EntityManager);
-    }
-    static int Hash(int2 cell)
-    {
-        return cell.x * 73856093 ^ cell.y * 19349663;
+
+        static int Hash(int2 cell)
+        {
+            return cell.x * 73856093 ^ cell.y * 19349663;
+        }
     }
 }

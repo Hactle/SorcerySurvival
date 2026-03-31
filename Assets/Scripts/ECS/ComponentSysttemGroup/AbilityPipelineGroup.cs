@@ -17,5 +17,9 @@ public partial class AbilityExecuteGroup : ComponentSystemGroup { }
 
 [UpdateInGroup(typeof(AbilityPipelineGroup))]
 [UpdateAfter(typeof(AbilityExecuteGroup))]
+public partial class AbilityCleanupGroup : ComponentSystemGroup { }
+
+[UpdateInGroup(typeof(AbilityPipelineGroup))]
+[UpdateAfter(typeof(AbilityCleanupGroup))]
 public partial class AbilityResetGroup : ComponentSystemGroup { }
 

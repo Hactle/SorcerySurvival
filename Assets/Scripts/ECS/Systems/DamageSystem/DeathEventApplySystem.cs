@@ -17,7 +17,7 @@ partial struct DeathEventApplySystem : ISystem
         {
             if (health.ValueRO.Value == 0)
             {
-                ecb.AddComponent<DeathEvent>(entity);
+                ecb.AddComponent<DestroyTag>(entity);
             }
         }
         ecb.Playback(state.EntityManager);

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d58408b4b79cb4a9d490fab6c712ba, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  Waves:
+  - Duration: 10
+    Enemies:
+    - EnemyPrefab: {fileID: 5853073692423098571, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
+      SpawnRate: 1.2
+    - EnemyPrefab: {fileID: 3845296545105040908, guid: 076faf5046ce64845a9f1e4b0b86e178, type: 3}
+      SpawnRate: 0.6
+  - Duration: 10
+    Enemies:
+    - EnemyPrefab: {fileID: 5853073692423098571, guid: 059cec7eb79e43343a7f8cc6e5a26cf9, type: 3}
+      SpawnRate: 1.3
+    - EnemyPrefab: {fileID: 3845296545105040908, guid: 076faf5046ce64845a9f1e4b0b86e178, type: 3}
+      SpawnRate: 0.8

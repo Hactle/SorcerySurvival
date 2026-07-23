@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectilePrefab: {fileID: 9084760744234679362, guid: 7230e70448ad98b4594106dc324085fb, type: 3}
-  Damage: 25
-  Cooldown: 0.8
+  Damage: 12000
+  Cooldown: 0.3

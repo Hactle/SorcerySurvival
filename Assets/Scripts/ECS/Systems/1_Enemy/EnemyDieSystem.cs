@@ -15,11 +15,6 @@ partial struct EnemyDieSystem : ISystem
                 .WithEntityAccess()
                 .WithAll<DestroyTag>())
         {
-            foreach (var waveState in SystemAPI.Query<RefRW<WaveState>>())
-            {
-                waveState.ValueRW.EnemiesRemaining--;
-            }
-
             ecb.DestroyEntity(entity);
         }
 

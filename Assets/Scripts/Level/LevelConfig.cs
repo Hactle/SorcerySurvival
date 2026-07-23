@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "LevelConfig", menuName = "Scriptable Objects/LevelConfig")]
-public class LevelConfig : ScriptableObject
-{
-    public WaveConfig[] Waves;
-}
-=======
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,4 +25,3 @@ public class EnemySpawnInfo
     [Min(0f)]
     public float SpawnRate = 1f;
 }
->>>>>>> Stashed changes

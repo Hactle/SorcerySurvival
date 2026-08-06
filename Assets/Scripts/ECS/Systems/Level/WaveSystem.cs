@@ -1,5 +1,6 @@
 using Unity.Entities;
 
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 public partial struct WaveSystem : ISystem
 {
     public void OnCreate(ref SystemState state)

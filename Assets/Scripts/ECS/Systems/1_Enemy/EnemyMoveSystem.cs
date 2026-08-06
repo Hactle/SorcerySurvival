@@ -4,8 +4,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 
 [BurstCompile]
-[UpdateInGroup(typeof(SimulationSystemGroup))]
-[UpdateAfter(typeof(SpatialHashMapSystem))]
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 public partial struct EnemyMoveSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)

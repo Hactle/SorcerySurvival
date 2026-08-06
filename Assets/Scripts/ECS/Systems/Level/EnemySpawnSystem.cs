@@ -4,6 +4,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 [BurstCompile]
 partial struct EnemySpawnSystem : ISystem
 {

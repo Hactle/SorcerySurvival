@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 partial struct EnemyAttackSystem : ISystem
 {
     [BurstCompile]

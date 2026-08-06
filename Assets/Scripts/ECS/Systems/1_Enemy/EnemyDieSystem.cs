@@ -1,7 +1,6 @@
 using Unity.Entities;
 using Unity.Collections;
 
-[UpdateInGroup(typeof(AbilityCleanupGroup))]
 partial struct EnemyDieSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)

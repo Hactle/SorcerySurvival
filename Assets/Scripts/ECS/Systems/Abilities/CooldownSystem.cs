@@ -6,6 +6,9 @@ partial struct CooldownCounterSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
+        if (SystemAPI.GetSingleton<GameState>().CurrentState != GameStateType.Playing)
+            return;
+
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);  
 
         foreach (var (cooldown, entity) in SystemAPI.Query<RefRW<Cooldown>>().WithEntityAccess())

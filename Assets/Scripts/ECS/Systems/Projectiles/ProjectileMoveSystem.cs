@@ -9,7 +9,7 @@ partial struct ProjectileMoveSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach(var (
+        foreach (var (
             target,
             speed,
             transform,

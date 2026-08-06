@@ -2,6 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 partial struct EnemyToPlayerCollisionSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)

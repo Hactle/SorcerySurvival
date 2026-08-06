@@ -1,7 +1,5 @@
 using Unity.Entities;
 using UnityEngine;
-using Unity.Mathematics;
-using Unity.Transforms;
 
 public class PlayerAuthoring : MonoBehaviour
 {
@@ -72,22 +70,5 @@ public class PlayerAuthoring : MonoBehaviour
                 Prefab = abilityPrefabEntity
             });
         }
-    }
-}
-
-public partial class PlayerInputSystem : SystemBase
-{
-    private CharacterInput _input;
-
-    protected override void OnCreate()
-    {
-        _input = new CharacterInput();
-        _input.Enable();
-    }
-
-    protected override void OnUpdate()
-    {
-        var currentInput = (float2)_input.Player.Move.ReadValue<Vector2>();
-        SystemAPI.GetSingletonRW<PlayerMoveDirection>().ValueRW.Value = currentInput;
     }
 }

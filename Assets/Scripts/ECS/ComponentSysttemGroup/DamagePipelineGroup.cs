@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-[UpdateInGroup(typeof(SimulationSystemGroup))]
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 public partial class DamagePipelineGroup : ComponentSystemGroup { }
 
 

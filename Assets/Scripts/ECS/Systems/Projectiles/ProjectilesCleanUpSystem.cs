@@ -1,6 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
 
+[UpdateInGroup(typeof(AbilityCleanupGroup))]
 partial struct ProjectilesCleanUpSystem : ISystem
 {
     [BurstCompile]

@@ -5,6 +5,9 @@ partial struct CooldownResetSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
+        if (SystemAPI.GetSingleton<GameState>().CurrentState != GameStateType.Playing)
+            return;
+
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
 
         foreach (var (

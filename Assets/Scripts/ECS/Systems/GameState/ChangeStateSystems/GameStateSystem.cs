@@ -6,6 +6,7 @@ partial struct GameStateSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<RequestGameStateEvent>();
+        state.RequireForUpdate<GameState>();
     }
 
     public void OnUpdate(ref SystemState state)

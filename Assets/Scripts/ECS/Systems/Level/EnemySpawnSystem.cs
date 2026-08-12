@@ -13,6 +13,7 @@ partial struct EnemySpawnSystem : ISystem
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<GameState>();
         state.RequireForUpdate<LevelState>();
 
         _random = Random.CreateFromIndex(12345);

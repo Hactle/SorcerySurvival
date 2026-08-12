@@ -6,6 +6,7 @@ partial struct TogglePauseSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<RequestTogglePauseEvent>();
+        state.RequireForUpdate<GameState>();
     }
 
     public void OnUpdate(ref SystemState state)

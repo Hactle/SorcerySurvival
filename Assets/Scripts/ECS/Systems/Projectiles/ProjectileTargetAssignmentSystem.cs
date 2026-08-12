@@ -6,6 +6,11 @@ using Unity.Transforms;
 [UpdateInGroup(typeof(AbilityInitializeGroup))]
 partial struct ProjectileTargetAssignmentSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         var ecb = new EntityCommandBuffer(Allocator.Temp);

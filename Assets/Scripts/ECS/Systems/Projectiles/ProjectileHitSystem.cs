@@ -6,6 +6,11 @@ using Unity.Transforms;
 [UpdateInGroup(typeof(AbilityExecuteGroup))]
 partial struct ProjectileHitSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         const float CellSize = 1.5f;

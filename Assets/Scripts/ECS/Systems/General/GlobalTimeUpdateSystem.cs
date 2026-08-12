@@ -9,6 +9,7 @@ public partial struct GlobalTimeUpdateSystem : ISystem
 
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<GameState>();
         state.RequireForUpdate<GameplayTime>();
     }
 

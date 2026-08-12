@@ -6,7 +6,8 @@ partial struct EventCleanUpSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
-        state.RequireForUpdate<EventTag>();
+        state.RequireForUpdate<GameState>();
+        state.RequireForUpdate<EventTag>();   
     }
 
     public void OnUpdate(ref SystemState state)

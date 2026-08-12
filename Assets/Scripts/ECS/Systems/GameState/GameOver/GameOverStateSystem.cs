@@ -5,6 +5,7 @@ partial struct GameOverStateSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<GameState>();
         state.RequireForUpdate<GameStateChangedEvent>();
     }
 

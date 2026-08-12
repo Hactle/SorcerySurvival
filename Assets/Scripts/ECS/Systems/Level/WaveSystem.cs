@@ -5,6 +5,7 @@ public partial struct WaveSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<GameState>();
         state.RequireForUpdate<LevelState>();
     }
 

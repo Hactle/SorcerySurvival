@@ -4,6 +4,11 @@ using Unity.Transforms;
 [UpdateInGroup(typeof(AbilityExecuteGroup))]
 partial struct ProjectileReleaseSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);

@@ -3,8 +3,16 @@ using Unity.Entities;
 [UpdateInGroup(typeof(AbilityResetGroup))]
 partial struct CooldownResetSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
+        if (SystemAPI.GetSingleton<GameState>().CurrentState != GameStateType.Playing)
+            return;
+
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
 
         foreach (var (

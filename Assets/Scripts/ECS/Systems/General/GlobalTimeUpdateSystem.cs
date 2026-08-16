@@ -1,23 +1,27 @@
-using Unity.Burst;
 using Unity.Entities;
 using UnityEngine;
 
-partial struct GlobalTimeUpdateSystem : ISystem
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
+public partial struct GlobalTimeUpdateSystem : ISystem
 {
-    private static int _globalTimeShaderPropertyId;
+    private static readonly int GlobalTimeShaderPropertyId =
+        Shader.PropertyToID("_GlobalTime");
 
     public void OnCreate(ref SystemState state)
     {
-        _globalTimeShaderPropertyId = Shader.PropertyToID("_GlobalTime");
+        state.RequireForUpdate<GameState>();
+        state.RequireForUpdate<GameplayTime>();
     }
 
     public void OnUpdate(ref SystemState state)
     {
-        Shader.SetGlobalFloat(_globalTimeShaderPropertyId, (float)SystemAPI.Time.ElapsedTime);
-    }
+        RefRW<GameplayTime> gameplayTime =
+            SystemAPI.GetSingletonRW<GameplayTime>();
 
-    public void OnDestroy(ref SystemState state)
-    {
-        
+        gameplayTime.ValueRW.Value += SystemAPI.Time.DeltaTime;
+
+        Shader.SetGlobalFloat(
+            GlobalTimeShaderPropertyId,
+            gameplayTime.ValueRO.Value);
     }
 }

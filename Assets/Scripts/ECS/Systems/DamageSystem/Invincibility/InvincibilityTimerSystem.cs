@@ -3,6 +3,11 @@ using Unity.Entities;
 [UpdateInGroup(typeof(SimulationSystemGroup))]
 partial struct InvincibilityTimerSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         float deltaTime = SystemAPI.Time.DeltaTime;

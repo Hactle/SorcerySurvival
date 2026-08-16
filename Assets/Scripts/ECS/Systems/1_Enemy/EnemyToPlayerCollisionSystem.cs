@@ -2,8 +2,14 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 partial struct EnemyToPlayerCollisionSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         if (!SystemAPI.TryGetSingletonEntity<PlayerTag>(out var player))

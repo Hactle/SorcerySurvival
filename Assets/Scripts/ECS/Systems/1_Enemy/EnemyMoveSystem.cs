@@ -3,11 +3,17 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[BurstCompile]
-[UpdateInGroup(typeof(SimulationSystemGroup))]
-[UpdateAfter(typeof(SpatialHashMapSystem))]
+
+[UpdateInGroup(typeof(GamePlaySystemGroup))]
 public partial struct EnemyMoveSystem : ISystem
 {
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         if (!SystemAPI.TryGetSingletonEntity<PlayerTag>(out var player))

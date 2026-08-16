@@ -1,17 +1,23 @@
-using Unity.Burst;
 using Unity.Entities;
 using Unity.Collections;
 
-[UpdateInGroup(typeof(AbilityCleanupGroup))]
-partial struct EntityDestroySystem : ISystem
+partial struct EnemyDieSystem : ISystem
 {
-    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
         var ecb = new EntityCommandBuffer(Allocator.Temp);
 
-        foreach (var (tag, entity) in SystemAPI.Query<DestroyTag>()
-                                    .WithEntityAccess())
+        foreach (var (
+            enemy,
+            entity) in SystemAPI.Query<
+                RefRO<EnemyTag>>()
+                .WithEntityAccess()
+                .WithAll<DestroyTag>())
         {
             ecb.DestroyEntity(entity);
         }

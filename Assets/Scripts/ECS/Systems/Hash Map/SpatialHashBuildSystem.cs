@@ -5,11 +5,17 @@ using Unity.Transforms;
 
 [UpdateInGroup(typeof(SimulationSystemGroup))]
 [UpdateBefore(typeof(SpatialHashMapSystem))]
-[BurstCompile]
 public partial struct SpatialHashBuildSystem : ISystem
 {
     public const float CellSize = 1.5f;
 
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         foreach (var (

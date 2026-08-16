@@ -2,8 +2,15 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 
-partial struct LifeTimeCounterSystem : ISystem
+[UpdateInGroup(typeof(AbilityCleanupGroup))]
+partial struct ProjectileLifeTimeCounterSystem : ISystem
 {
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -13,7 +20,8 @@ partial struct LifeTimeCounterSystem : ISystem
             lifeTime,
             entity) in SystemAPI.Query
                     <RefRW<LifeTime>>()
-                    .WithEntityAccess())
+                    .WithEntityAccess()
+                    .WithAll<ProjectileTag>())
         {
             lifeTime.ValueRW.Value = math.max(
                 0,
@@ -21,7 +29,7 @@ partial struct LifeTimeCounterSystem : ISystem
                 
             if (lifeTime.ValueRW.Value == 0f)
             {
-                ecb.DestroyEntity(entity);
+                ecb.AddComponent<DestroyTag>(entity);
             }
         }
         ecb.Playback(state.EntityManager);

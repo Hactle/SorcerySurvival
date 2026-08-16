@@ -1,12 +1,11 @@
-﻿using Unity.Burst;
-using Unity.Entities;
-using UnityEngine;
+﻿using Unity.Entities;
 
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 public partial struct CameraInitializationSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
+        state.RequireForUpdate<GameState>();
         state.RequireForUpdate<InitializeCameraTargetTag>();
     }
     public void OnUpdate(ref SystemState state)

@@ -1,7 +1,8 @@
 using Unity.Entities;
 
 [UpdateInGroup(typeof(EventResponseGroup))]
-partial struct GameOverStateSystem : ISystem
+[UpdateBefore(typeof(GameplayGroupControlSystem))]
+partial struct GameOverUISystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
@@ -16,16 +17,8 @@ partial struct GameOverStateSystem : ISystem
             if(gameStateEvent.ValueRO.PreviousState == GameStateType.Playing &&
             gameStateEvent.ValueRO.NewState == GameStateType.GameOver)
             {
-                var gameplayGroup =
-                state.World.GetExistingSystemManaged<GamePlaySystemGroup>();
-
-                gameplayGroup.Enabled = false;
+                GameStateUIController.Instance.ShowGameOver();
             }
         }
-    }
-
-    public void OnDestroy(ref SystemState state)
-    {
-        
     }
 }

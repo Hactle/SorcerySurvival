@@ -13,16 +13,14 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
 
         _input = new CharacterInput();
-        _input.Enable();
+    }
+
+    public void ConsumePause()
+    {
+        PausePressed = false;
     }
 
     private void Update()
@@ -32,8 +30,19 @@ public class InputManager : MonoBehaviour
         PausePressed = _input.UI.Pause.WasPressedThisFrame();
     }
 
-    public void ConsumePause()
+    private void OnEnable()
     {
-        PausePressed = false;
+        _input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _input.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 }

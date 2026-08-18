@@ -1,6 +1,7 @@
 using Unity.Entities;
 
 [UpdateInGroup(typeof(EventResponseGroup))]
+[UpdateBefore(typeof(GameplayGroupControlSystem))]
 partial struct PauseGameSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
@@ -16,20 +17,12 @@ partial struct PauseGameSystem : ISystem
             if (gameStateEvent.ValueRO.PreviousState == GameStateType.Playing &&
             gameStateEvent.ValueRO.NewState == GameStateType.Paused)
             {
-                var gameplayGroup =
-                state.World.GetExistingSystemManaged<GamePlaySystemGroup>();
-                gameplayGroup.Enabled = false;
-
-                PauseUI.Instance.Show();
+                GameStateUIController.Instance.ShowPause();
             }
             else if (gameStateEvent.ValueRO.PreviousState == GameStateType.Paused &&
             gameStateEvent.ValueRO.NewState == GameStateType.Playing)
             {
-                var gameplayGroup =
-                state.World.GetExistingSystemManaged<GamePlaySystemGroup>();
-                gameplayGroup.Enabled = true;
-
-                PauseUI.Instance.Hide();
+                GameStateUIController.Instance.HidePause();
             }
         }
     }

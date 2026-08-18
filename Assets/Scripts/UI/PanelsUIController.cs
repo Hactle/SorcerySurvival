@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GameStateUIController : MonoBehaviour
+public class PanelsUIController : MonoBehaviour
 {
-    public static GameStateUIController Instance { get; private set; }
+    public static PanelsUIController Instance { get; private set; }
 
     [SerializeField] private GameObject _gameOverPanel;
     [SerializeField] private GameObject _pausePanel;

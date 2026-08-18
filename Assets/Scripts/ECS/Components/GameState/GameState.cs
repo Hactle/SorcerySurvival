@@ -4,6 +4,7 @@ public enum GameStateType : byte
 {
     Playing,
     GameOver,
+    Win,
     Paused
 }
 

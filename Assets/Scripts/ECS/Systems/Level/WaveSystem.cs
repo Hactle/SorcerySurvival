@@ -13,6 +13,8 @@ public partial struct WaveSystem : ISystem
     {
         float deltaTime = SystemAPI.Time.DeltaTime;
 
+        var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
+
         foreach (var (levelState, waveBuffer) in
                  SystemAPI.Query<
                      RefRW<LevelState>,
@@ -42,7 +44,14 @@ public partial struct WaveSystem : ISystem
             {
                 levelState.ValueRW.WaveInProgress = false;
 
-                UnityEngine.Debug.Log("Level Complete");
+                var requestEntity = ecb.CreateEntity();
+
+                ecb.AddComponent<EventTag>(requestEntity);
+
+                ecb.AddComponent(requestEntity, new RequestGameStateEvent
+                {
+                    NewState = GameStateType.Win
+                });
 
                 continue;
             }
@@ -54,5 +63,7 @@ public partial struct WaveSystem : ISystem
             levelState.ValueRW.TimeLeft = nextWaveData.Duration;
             levelState.ValueRW.WaveInProgress = true;
         }
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 }

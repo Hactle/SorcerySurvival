@@ -17,12 +17,12 @@ partial struct PauseGameSystem : ISystem
             if (gameStateEvent.ValueRO.PreviousState == GameStateType.Playing &&
             gameStateEvent.ValueRO.NewState == GameStateType.Paused)
             {
-                GameStateUIController.Instance.ShowPause();
+                PanelsUIController.Instance.ShowPause();
             }
             else if (gameStateEvent.ValueRO.PreviousState == GameStateType.Paused &&
             gameStateEvent.ValueRO.NewState == GameStateType.Playing)
             {
-                GameStateUIController.Instance.HidePause();
+                PanelsUIController.Instance.HidePause();
             }
         }
     }

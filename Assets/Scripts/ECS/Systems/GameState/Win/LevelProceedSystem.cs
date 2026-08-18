@@ -2,7 +2,7 @@ using Unity.Entities;
 
 [UpdateInGroup(typeof(EventResponseGroup))]
 [UpdateBefore(typeof(GameplayGroupControlSystem))]
-partial struct GameOverUISystem : ISystem
+partial struct LevelProceedSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
     {
@@ -14,10 +14,9 @@ partial struct GameOverUISystem : ISystem
     {
         foreach (var gameStateEvent in SystemAPI.Query<RefRO<GameStateChangedEvent>>())
         {
-            if(gameStateEvent.ValueRO.PreviousState == GameStateType.Playing &&
-            gameStateEvent.ValueRO.NewState == GameStateType.GameOver)
+            if (gameStateEvent.ValueRO.NewState == GameStateType.Win)
             {
-                PanelsUIController.Instance.ShowGameOver();
+                PanelsUIController.Instance.ShowWin();
             }
         }
     }

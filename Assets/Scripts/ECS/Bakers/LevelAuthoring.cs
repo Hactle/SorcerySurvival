@@ -12,7 +12,10 @@ class LevelAuthoringBaker : Baker<LevelAuthoring>
     {
         Entity levelEntity = GetEntity(TransformUsageFlags.None);
 
-        AddComponent(levelEntity, new LevelState());
+        AddComponent(levelEntity, new LevelState
+        {
+            LevelId = authoring.Config.LevelId
+        });
 
         DynamicBuffer<WaveElement> waveBuffer = 
             AddBuffer<WaveElement>(levelEntity);

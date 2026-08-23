@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb2a747b31f0b746bd0e58376e7a576, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: Assembly-CSharp::LevelConfig
+  LevelId: 1
   Waves:
   - Duration: 10
     Enemies:

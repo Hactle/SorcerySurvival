@@ -44,6 +44,15 @@ public partial struct WaveSystem : ISystem
             {
                 levelState.ValueRW.WaveInProgress = false;
 
+                var levelCompletedEntity = ecb.CreateEntity();
+
+                ecb.AddComponent<EventTag>(levelCompletedEntity);
+
+                ecb.AddComponent(levelCompletedEntity, new LevelCompletedEvent
+                {
+                    LevelId = levelState.ValueRO.LevelId
+                });
+
                 var requestEntity = ecb.CreateEntity();
 
                 ecb.AddComponent<EventTag>(requestEntity);

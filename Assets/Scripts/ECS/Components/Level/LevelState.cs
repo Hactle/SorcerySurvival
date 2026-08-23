@@ -2,6 +2,8 @@ using Unity.Entities;
 
 public struct LevelState : IComponentData
 {
+    public int LevelId;
+
     public int WaveVersion;
     public int SpawnSystemWaveVersion;
 

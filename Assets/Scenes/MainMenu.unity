@@ -1025,6 +1025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610247593}
+  - component: {fileID: 610247594}
   m_Layer: 5
   m_Name: Level1
   m_TagString: Untagged
@@ -1055,6 +1056,20 @@ RectTransform:
   m_AnchoredPosition: {x: 315, y: 0}
   m_SizeDelta: {x: 462.8997, y: 719.9893}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &610247594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610247592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9addbbcf2b0b043bc9dfd638dd4a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelectItem
+  levelDefinition: {fileID: 11400000, guid: 50b1f11f33650fb4199e6ac94e4b5d5b, type: 2}
+  playButton: {fileID: 1996478743}
 --- !u!1 &891895675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917486625}
+  - component: {fileID: 917486626}
   m_Layer: 5
   m_Name: Level2
   m_TagString: Untagged
@@ -1169,6 +1185,20 @@ RectTransform:
   m_AnchoredPosition: {x: 965, y: 0}
   m_SizeDelta: {x: 462.8997, y: 719.9893}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &917486626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917486624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9addbbcf2b0b043bc9dfd638dd4a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelectItem
+  levelDefinition: {fileID: 11400000, guid: 14e668caa75700f498e086b859a06f27, type: 2}
+  playButton: {fileID: 276979952}
 --- !u!1 &942012396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 942012397}
+  - component: {fileID: 942012398}
   m_Layer: 5
   m_Name: Level Select Panel
   m_TagString: Untagged
@@ -1209,6 +1240,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0.00012207, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &942012398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942012396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963332d6153ccee499e34bb9e7429437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelectUI
+  levelItems:
+  - {fileID: 610247594}
+  - {fileID: 917486626}
 --- !u!1 &967548224
 GameObject:
   m_ObjectHideFlags: 0

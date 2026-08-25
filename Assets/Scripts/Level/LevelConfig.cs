@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelConfig", menuName = "Configs/Level Config")]
 public class LevelConfig : ScriptableObject
 {
+    public int LevelId;
     public List<WaveConfig> Waves = new();
 }
 

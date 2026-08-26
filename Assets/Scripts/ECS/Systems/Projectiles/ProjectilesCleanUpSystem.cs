@@ -15,12 +15,13 @@ partial struct ProjectilesCleanUpSystem : ISystem
     {
         var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
 
-        foreach (var (destroyTag, entity) in SystemAPI.Query<
-                        RefRO<DestroyTag>>()
+        foreach (var (pierce, entity) in SystemAPI.Query<
+                        RefRO<Pierce>>()
                         .WithEntityAccess()
                         .WithAll<ProjectileTag>())
         {
-            ecb.DestroyEntity(entity);
+            if (pierce.ValueRO.Value == 0)
+                ecb.DestroyEntity(entity);
         }
         ecb.Playback(state.EntityManager);
     }

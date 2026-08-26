@@ -100,9 +100,6 @@ partial struct ProjectileHitSystem : ISystem
 
                                 pierce.ValueRW.Value = math.max(0, pierce.ValueRW.Value - 1);
 
-                                if (pierce.ValueRW.Value == 0)
-                                    ecb.AddComponent<DestroyTag>(entity);
-
                                 hitSomething = true;
                                 break;
                             }

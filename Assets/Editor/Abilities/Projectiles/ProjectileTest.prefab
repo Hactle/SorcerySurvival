@@ -103,6 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4d4b58d59ddff44bd8a6e2bc3191c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  Speed: 15
   HitRadius: 0.75
-  Pierce: 1
+  Pierce: 2

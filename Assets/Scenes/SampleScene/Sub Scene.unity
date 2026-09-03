@@ -188,11 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ffc9a5e0ec3f048989d64e4982ad58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  MoveSpeed: 5
-  CollisionRadius: 0.5
-  InvincibilityTime: 1
-  MagicBulletAbilityPrefab: {fileID: 3311698457534291679, guid: 41ef22cfa5505db44b23d180264625bd, type: 3}
+  _maxHealth: 100
+  _moveSpeed: 5
+  _collisionRadius: 0.5
+  _invincibilityTime: 1
+  _magicBulletAbilityPrefab: {fileID: 3311698457534291679, guid: 41ef22cfa5505db44b23d180264625bd, type: 3}
+  _experiencePool: 100
 --- !u!1 &5425334470338368589
 GameObject:
   m_ObjectHideFlags: 0

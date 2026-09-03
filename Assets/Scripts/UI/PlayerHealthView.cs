@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour
 {
+    public static HealthView Instance { get; private set; }
+
     [Header("Health Fill")]
     [SerializeField] private Image _redHealthFill;
     [SerializeField] private Image _whiteHealthFill;
@@ -18,28 +20,35 @@ public class HealthView : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         _redCurrent = _redHealthFill.fillAmount;
         _whiteCurrent = _whiteHealthFill.fillAmount;
         _targetFill = _redCurrent;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     public void SetHealth(float healthPercentage)
     {
         healthPercentage = Mathf.Clamp01(healthPercentage);
 
-        if(healthPercentage < _targetFill)
+        if (healthPercentage < _targetFill)
         {
             _whiteDelayTimer = _whiteDelay;
             _whiteCurrent = _redCurrent;
         }
-        
+
         _targetFill = healthPercentage;
     }
 
-    void Update()
+    private void Update()
     {
         _redCurrent = _targetFill;
-
         _redHealthFill.fillAmount = _redCurrent;
 
         if (_whiteDelayTimer > 0f)

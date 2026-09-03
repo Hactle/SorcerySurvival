@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class PlayerAuthoring : MonoBehaviour
 {
-    public float MaxHealth = 100f;
-    public float MoveSpeed = 5f;   
-    public float CollisionRadius = 0.5f;
-    public float InvincibilityTime;
+    [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _collisionRadius = 0.5f;
+    [SerializeField] private float _invincibilityTime;
 
-    public GameObject MagicBulletAbilityPrefab;
+    [SerializeField] private GameObject _magicBulletAbilityPrefab;
+
+    [SerializeField] private int _experiencePool = 100;
 
     private class Baker : Baker<PlayerAuthoring>
     {
@@ -16,7 +18,7 @@ public class PlayerAuthoring : MonoBehaviour
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-            var abilityPrefabEntity = GetEntity(authoring.MagicBulletAbilityPrefab, TransformUsageFlags.None);
+            var abilityPrefabEntity = GetEntity(authoring._magicBulletAbilityPrefab, TransformUsageFlags.None);
 
             AddComponent<PlayerTag>(entity);
 
@@ -27,7 +29,7 @@ public class PlayerAuthoring : MonoBehaviour
 
             AddComponent(entity, new MoveSpeed
             {
-                Value = authoring.MoveSpeed
+                Value = authoring._moveSpeed
             });
          
             AddComponent<InitializeCameraTargetTag>(entity);
@@ -47,27 +49,38 @@ public class PlayerAuthoring : MonoBehaviour
 
             AddComponent(entity, new Health
             {
-                Value = authoring.MaxHealth
+                Value = authoring._maxHealth
             });
 
             AddComponent(entity, new MaxHealth
             {
-                Value = authoring.MaxHealth
+                Value = authoring._maxHealth
             });
 
             AddComponent(entity, new CollisionRadius
             {
-                Value = authoring.CollisionRadius,
+                Value = authoring._collisionRadius,
             });
 
             AddComponent(entity, new CanReceiveInvincibility
             {
-                Value = authoring.InvincibilityTime
+                Value = authoring._invincibilityTime
             });
 
             AddComponent(entity, new PlayerStartingAbility
             {
                 Prefab = abilityPrefabEntity
+            });
+
+            AddComponent(entity, new ExperiencePool
+            {
+                MaxValue = authoring._experiencePool,
+                CurrentValue = 0
+            });
+
+            AddComponent(entity, new Level
+            {
+                CurrentLevel = 1
             });
         }
     }

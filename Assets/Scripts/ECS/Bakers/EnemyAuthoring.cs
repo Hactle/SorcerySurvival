@@ -2,21 +2,24 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine.Rendering;
 
 class EnemyAuthoring : MonoBehaviour
 {
     [Header("Movement")]
     [Space(4)]
-    public float MoveSpeed;
-    public float CollisionRadius;
-    public float SeparationRadius;
-    public float SeparationStrength;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _collisionRadius;
+    [SerializeField] private float _separationRadius;
+    [SerializeField] private float _separationStrength;
     [Space(5)]
     [Header("Attack")]
     [Space(4)]
-    public float Health;
-    public float Damage;
+    [SerializeField] private float _health;
+    [SerializeField] private float _damage;
+    [Space(5)]
 
+    [SerializeField] private int _experienceGain;
 
     class EnemyBaker : Baker<EnemyAuthoring>
     {
@@ -33,19 +36,19 @@ class EnemyAuthoring : MonoBehaviour
 
             AddComponent(entity, new MoveSpeed
             {
-                Value = authoring.MoveSpeed,
+                Value = authoring._moveSpeed,
             });
 
             AddComponent<WorldPosition>(entity);
 
             AddComponent(entity, new SeparationRadius
             {
-                Value = authoring.SeparationRadius,
+                Value = authoring._separationRadius,
             });
 
             AddComponent(entity, new SeparationStrenght
             {
-                Value = authoring.SeparationStrength,
+                Value = authoring._separationStrength,
             });
             
             AddComponent(entity, new SpatialHashCell());
@@ -59,17 +62,22 @@ class EnemyAuthoring : MonoBehaviour
 
             AddComponent(entity, new Health
             {
-                Value = authoring.Health,
+                Value = authoring._health,
             });
 
             AddComponent(entity, new Damage
             {
-                Value = authoring.Damage,
+                Value = authoring._damage,
             });
 
             AddComponent(entity, new CollisionRadius
             {
-                Value = authoring.CollisionRadius,
+                Value = authoring._collisionRadius,
+            });
+
+            AddComponent(entity, new ExperienceGain
+            {
+                Value = authoring._experienceGain,
             });
         }
     }

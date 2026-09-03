@@ -14,11 +14,21 @@ partial struct EnemyDieSystem : ISystem
 
         foreach (var (
             enemy,
+            experienceGain,
             entity) in SystemAPI.Query<
-                RefRO<EnemyTag>>()
+                RefRO<EnemyTag>,
+                RefRO<ExperienceGain>>()
                 .WithEntityAccess()
                 .WithAll<DestroyTag>())
         {
+            Entity eventEntity = ecb.CreateEntity();
+
+            ecb.AddComponent<EventTag>(eventEntity);
+            ecb.AddComponent(eventEntity, new ExperienceGainRequest
+            {
+                Value = experienceGain.ValueRO.Value
+            });
+
             ecb.DestroyEntity(entity);
         }
 

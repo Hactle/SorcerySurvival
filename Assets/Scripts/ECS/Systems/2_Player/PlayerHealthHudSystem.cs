@@ -2,8 +2,16 @@ using Unity.Entities;
 
 partial struct PlayerHealthHUDSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<GameState>();
+    }
+
     public void OnUpdate(ref SystemState state)
     {
+        if (HealthView.Instance == null)
+            return;
+
         if (!SystemAPI.TryGetSingletonEntity<PlayerTag>(out var player))
             return;
 
@@ -12,9 +20,6 @@ partial struct PlayerHealthHUDSystem : ISystem
 
         float healthPercentage = health / maxHealth;
 
-        foreach (var hud in UnityEngine.Object.FindObjectsByType<HealthView>(UnityEngine.FindObjectsSortMode.None))
-        {
-            hud.SetHealth(healthPercentage);
-        }
+        HealthView.Instance.SetHealth(healthPercentage);
     }
 }

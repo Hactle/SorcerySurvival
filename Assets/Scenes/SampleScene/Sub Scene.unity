@@ -157,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 8520718384670812715}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.77796, y: 2.99792, z: 0}
+  m_LocalPosition: {x: -8.77796, y: 2.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -192,7 +192,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _collisionRadius: 0.5
   _invincibilityTime: 1
-  _magicBulletAbilityPrefab: {fileID: 3311698457534291679, guid: 41ef22cfa5505db44b23d180264625bd, type: 3}
+  _startingAbilityPrefab: {fileID: 1232487813139996442, guid: 277c66b437b9b284094e3a834d304b1b, type: 3}
   _experiencePool: 100
 --- !u!1 &5425334470338368589
 GameObject:

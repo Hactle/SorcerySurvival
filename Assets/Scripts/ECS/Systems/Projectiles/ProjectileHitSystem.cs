@@ -32,7 +32,7 @@ partial struct ProjectileHitSystem : ISystem
             in SystemAPI.Query<
                 RefRO<LocalTransform>,
                 RefRO<Damage>,
-                RefRO<HitRadius>,
+                RefRO<ProjectileHitRadius>,
                 RefRW<Pierce>,
                 DynamicBuffer<DamagedEntity>,
                 RefRO<EntitySide>>()
@@ -88,7 +88,7 @@ partial struct ProjectileHitSystem : ISystem
                                 if (alreadyHit)
                                     continue;
 
-                                ecb.AddComponent(enemy, new DamageEvent
+                                ecb.AppendToBuffer(enemy, new DamageEvent
                                 {
                                     Value = damage.ValueRO.Value
                                 });
@@ -139,7 +139,7 @@ partial struct ProjectileHitSystem : ISystem
                     if (alredyHit)
                         continue;
 
-                    ecb.AddComponent(player, new DamageEvent
+                    ecb.AppendToBuffer(player, new DamageEvent
                     {
                         Value = damage.ValueRO.Value
                     });

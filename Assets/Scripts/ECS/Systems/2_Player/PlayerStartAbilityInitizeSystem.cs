@@ -1,5 +1,4 @@
 using Unity.Entities;
-using Unity.Transforms;
 
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 public partial struct PlayerAbilityInitializationSystem : ISystem

@@ -9,6 +9,7 @@ partial struct ProjectileLifeTimeCounterSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<GameState>();
+        state.RequireForUpdate<ProjectileReleaseTag>();
     }
 
     [BurstCompile]

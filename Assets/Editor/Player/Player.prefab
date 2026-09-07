@@ -50,7 +50,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _collisionRadius: 0.5
   _invincibilityTime: 1
-  _magicBulletAbilityPrefab: {fileID: 3311698457534291679, guid: 41ef22cfa5505db44b23d180264625bd, type: 3}
+  _startingAbilityPrefab: {fileID: 1232487813139996442, guid: 277c66b437b9b284094e3a834d304b1b, type: 3}
   _experiencePool: 100
 --- !u!23 &6472867003074596267
 MeshRenderer:

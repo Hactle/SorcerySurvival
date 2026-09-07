@@ -8,7 +8,7 @@ public class PlayerAuthoring : MonoBehaviour
     [SerializeField] private float _collisionRadius = 0.5f;
     [SerializeField] private float _invincibilityTime;
 
-    [SerializeField] private GameObject _magicBulletAbilityPrefab;
+    [SerializeField] private GameObject _startingAbilityPrefab;
 
     [SerializeField] private int _experiencePool = 100;
 
@@ -18,7 +18,7 @@ public class PlayerAuthoring : MonoBehaviour
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-            var abilityPrefabEntity = GetEntity(authoring._magicBulletAbilityPrefab, TransformUsageFlags.None);
+            var abilityPrefabEntity = GetEntity(authoring._startingAbilityPrefab, TransformUsageFlags.None);
 
             AddComponent<PlayerTag>(entity);
 
@@ -51,6 +51,8 @@ public class PlayerAuthoring : MonoBehaviour
             {
                 Value = authoring._maxHealth
             });
+
+            AddBuffer<DamageEvent>(entity);
 
             AddComponent(entity, new MaxHealth
             {

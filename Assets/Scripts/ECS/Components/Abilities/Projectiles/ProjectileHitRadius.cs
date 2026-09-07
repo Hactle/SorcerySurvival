@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-public struct DamageEvent : IBufferElementData
+public struct ProjectileHitRadius : IComponentData
 {
     public float Value;
 }

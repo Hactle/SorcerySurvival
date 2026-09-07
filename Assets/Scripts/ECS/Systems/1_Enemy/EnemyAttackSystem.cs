@@ -35,7 +35,7 @@ partial struct EnemyAttackSystem : ISystem
 
             if (distance <= 1f)
             {
-                ecb.AddComponent(player, new DamageEvent
+                ecb.AppendToBuffer(player, new DamageEvent
                 {
                     Value = damage.ValueRO.Value
                 });

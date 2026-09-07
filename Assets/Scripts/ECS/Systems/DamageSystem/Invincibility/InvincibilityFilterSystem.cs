@@ -13,18 +13,14 @@ partial struct InvincibilityFilterSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecb = new EntityCommandBuffer(state.WorldUpdateAllocator);
-
         foreach(var (
             invincibility,
-            damageEvent,
-            entity
-            ) in SystemAPI.Query<
+            damageEvents) 
+            in SystemAPI.Query<
                 RefRO<InvincibilityTag>,
-                RefRO<DamageEvent>>().WithEntityAccess())
+                DynamicBuffer<DamageEvent>>())
         {
-            ecb.RemoveComponent<DamageEvent>(entity);
+            damageEvents.Clear();
         }
-        ecb.Playback(state.EntityManager);
     }
 }

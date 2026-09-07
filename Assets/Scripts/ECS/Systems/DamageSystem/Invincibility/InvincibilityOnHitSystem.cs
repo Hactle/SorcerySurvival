@@ -26,7 +26,6 @@ partial struct InvincibilityOnHitSystem : ISystem
             {
                 Value = canReceiveInvincibility.ValueRO.Value
             });
-            ecb.RemoveComponent<DamageEvent>(entity);
         }
         ecb.Playback(state.EntityManager);
     }

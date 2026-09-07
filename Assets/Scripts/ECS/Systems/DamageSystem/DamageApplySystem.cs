@@ -18,23 +18,27 @@ partial struct DamageApplySystem : ISystem
 
         foreach (var (
             health,
-            damage,
+            damageEvents,
             entity) in SystemAPI.Query<
                 RefRW<Health>,
-                RefRO<DamageEvent>>()
+                DynamicBuffer<DamageEvent>>()
                 .WithEntityAccess())
         {
-            health.ValueRW.Value = math.max(
-                health.ValueRW.Value - damage.ValueRO.Value,
-                0);
-            
-            ecb.RemoveComponent<DamageEvent>(entity);
+            if (damageEvents.Length == 0)
+                continue;
 
-            ecb.AddComponent(entity, new DamageAppliedEvent
-            {
-                Value = damage.ValueRO.Value
-            });
+            float total = 0f;
+
+            for (int i = 0; i < damageEvents.Length; i++)
+                total += damageEvents[i].Value;
+
+            health.ValueRW.Value = math.max(health.ValueRW.Value - total, 0);
+
+            damageEvents.Clear();
+
+            ecb.AddComponent(entity, new DamageAppliedEvent { Value = total });
         }
+
         ecb.Playback(state.EntityManager);
     }
 }

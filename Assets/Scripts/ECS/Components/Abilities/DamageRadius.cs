@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-public struct HitRadius : IComponentData
+public struct DamageRadius : IComponentData
 {
     public float Value;
 }

@@ -29,7 +29,7 @@ public class ProjectileAuthoringBaker : Baker<ProjectileAuthoring>
             Value = 6f,
         });
 
-        AddComponent(entity, new HitRadius
+        AddComponent(entity, new ProjectileHitRadius
         {
             Value = authoring.HitRadius,
         });

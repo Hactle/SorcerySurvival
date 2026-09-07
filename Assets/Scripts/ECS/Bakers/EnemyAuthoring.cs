@@ -1,8 +1,5 @@
 using UnityEngine;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
-using UnityEngine.Rendering;
 
 class EnemyAuthoring : MonoBehaviour
 {
@@ -64,6 +61,8 @@ class EnemyAuthoring : MonoBehaviour
             {
                 Value = authoring._health,
             });
+
+            AddBuffer<DamageEvent>(entity);
 
             AddComponent(entity, new Damage
             {
